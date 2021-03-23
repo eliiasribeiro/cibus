@@ -60,9 +60,9 @@ public class TipoDeCozinhaController {
     }
 
     @PostMapping("/admin/tipos-de-cozinha/editar/{id}")
-    public String edita(@Valid TipoDeCozinhaParaEdicaoForm tipoDeCozinhaForm, BindingResult bindingResult) {
+    public String edita(@Valid TipoDeCozinhaParaEdicaoForm tipoDeCozinhaForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "tipo-de-cozinha/formulario-editar";
+            return formularioEditar(tipoDeCozinhaForm.getId(), model);
         }
 
         TipoDeCozinha tipoDeCozinha = tipoDeCozinhaForm.toEntity(tipoDeCozinhaRepository);
