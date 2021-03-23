@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 
+import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
 class TipoDeCozinhaParaEdicaoValidatorTest {
@@ -16,17 +17,18 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     @BeforeEach
     void init() {
         tipoDeCozinhaParaEdicaoForm = new TipoDeCozinhaParaEdicaoForm();
-        tipoDeCozinhaParaEdicaoForm.setId(1L);
-        tipoDeCozinhaParaEdicaoForm.setNome("Mexicana");
 
         repository = mock(TipoDeCozinhaRepository.class);
+        when(repository.existsByNomeAndIdNot(eq("Mexicana"), not(eq(1L)))).thenReturn(true);
+
         tipoDeCozinhaParaEdicaoValidator = new TipoDeCozinhaParaEdicaoValidator(repository);
         errors = mock(Errors.class);
     }
 
     @Test
-    void quandoIdExisteENomeNaoExisteNaoDaErro() {
-        when(repository.existsByNomeAndIdNot("Mexicana", 1L)).thenReturn(false);
+    void quandoNomeJaExisteEIdForOMesmoNaoDaErro() {
+        tipoDeCozinhaParaEdicaoForm.setId(1L);
+        tipoDeCozinhaParaEdicaoForm.setNome("Mexicana");
 
         tipoDeCozinhaParaEdicaoValidator.validate(tipoDeCozinhaParaEdicaoForm, errors);
 
@@ -34,8 +36,9 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoIdNaoExisteENomeExisteDeveDarErro() {
-        when(repository.existsByNomeAndIdNot("Mexicana", 1L)).thenReturn(true);
+    void quandoNomeJaExisteMasIdForDiferenteDeveDarErro() {
+        tipoDeCozinhaParaEdicaoForm.setId(99L);
+        tipoDeCozinhaParaEdicaoForm.setNome("Mexicana");
 
         tipoDeCozinhaParaEdicaoValidator.validate(tipoDeCozinhaParaEdicaoForm, errors);
 
@@ -43,20 +46,22 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoIdExisteENomeExisteDeveDarErro() {
-        when(repository.existsByNomeAndIdNot("Mexicana", 1L)).thenReturn(true);
+    void quandoNomeNaoExisteEIdForOMesmoNaoDaErro() {
+        tipoDeCozinhaParaEdicaoForm.setId(1L);
+        tipoDeCozinhaParaEdicaoForm.setNome("Italiana");
 
         tipoDeCozinhaParaEdicaoValidator.validate(tipoDeCozinhaParaEdicaoForm, errors);
 
-        verify(errors).rejectValue("nome", "nome.ja.existente", "Nome já existente");
+        verify(errors, never()).rejectValue("nome", "nome.ja.existente", "Nome já existente");
     }
 
     @Test
-    void quandoIdNaoExisteENomeNaoExisteDeveDarErro() {
-        when(repository.existsByNomeAndIdNot("Mexicana", 1L)).thenReturn(true);
+    void quandoNomeNaoExisteMasIdForDiferenteNaoDaErro() {
+        tipoDeCozinhaParaEdicaoForm.setId(99L);
+        tipoDeCozinhaParaEdicaoForm.setNome("Italiana");
 
         tipoDeCozinhaParaEdicaoValidator.validate(tipoDeCozinhaParaEdicaoForm, errors);
 
-        verify(errors).rejectValue("nome", "nome.ja.existente", "Nome já existente");
+        verify(errors, never()).rejectValue("nome", "nome.ja.existente", "Nome já existente");
     }
 }

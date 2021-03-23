@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 
+import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
 class TipoDeCozinhaParaAdicaoValidatorTest {
@@ -16,16 +17,18 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
     @BeforeEach
     void init() {
         tipoDeCozinhaForm = new TipoDeCozinhaForm();
-        tipoDeCozinhaForm.setNome("Mexicana");
 
         repository = mock(TipoDeCozinhaRepository.class);
+        when(repository.existsByNome("Mexicana")).thenReturn(true);
+
         tipoDeCozinhaParaAdicaoValidator = new TipoDeCozinhaParaAdicaoValidator(repository);
+
         errors = mock(Errors.class);
     }
 
     @Test
     void quandoNomeJaExisteDeveDarErro() {
-        when(repository.existsByNome("Mexicana")).thenReturn(true);
+        tipoDeCozinhaForm.setNome("Mexicana");
 
         tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaForm, errors);
 
@@ -34,7 +37,7 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
 
     @Test
     void quandoNomeNaoExisteNaoDaErro() {
-        when(repository.existsByNome("Mexicana")).thenReturn(false);
+        tipoDeCozinhaForm.setNome("Italiana");
 
         tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaForm, errors);
 
