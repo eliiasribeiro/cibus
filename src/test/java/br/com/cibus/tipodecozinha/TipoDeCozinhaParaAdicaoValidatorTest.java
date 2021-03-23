@@ -9,14 +9,14 @@ import static org.mockito.Mockito.*;
 
 class TipoDeCozinhaParaAdicaoValidatorTest {
 
-    private TipoDeCozinhaForm tipoDeCozinhaForm;
+    private TipoDeCozinhaParaAdicaoForm tipoDeCozinhaParaAdicaoForm;
     private TipoDeCozinhaRepository repository;
     private TipoDeCozinhaParaAdicaoValidator tipoDeCozinhaParaAdicaoValidator;
     private Errors errors;
 
     @BeforeEach
     void init() {
-        tipoDeCozinhaForm = new TipoDeCozinhaForm();
+        tipoDeCozinhaParaAdicaoForm = new TipoDeCozinhaParaAdicaoForm();
 
         repository = mock(TipoDeCozinhaRepository.class);
         when(repository.existsByNome("Mexicana")).thenReturn(true);
@@ -28,18 +28,18 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
 
     @Test
     void quandoNomeJaExisteDeveDarErro() {
-        tipoDeCozinhaForm.setNome("Mexicana");
+        tipoDeCozinhaParaAdicaoForm.setNome("Mexicana");
 
-        tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaForm, errors);
+        tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaParaAdicaoForm, errors);
 
         verify(errors).rejectValue("nome", "nome.ja.existente", "Nome já existente");
     }
 
     @Test
     void quandoNomeNaoExisteNaoDaErro() {
-        tipoDeCozinhaForm.setNome("Italiana");
+        tipoDeCozinhaParaAdicaoForm.setNome("Italiana");
 
-        tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaForm, errors);
+        tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaParaAdicaoForm, errors);
 
         verify(errors, never()).rejectValue("nome", "nome.ja.existente", "Nome já existente");
     }

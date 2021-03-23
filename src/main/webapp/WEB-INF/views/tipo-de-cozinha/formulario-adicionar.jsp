@@ -12,7 +12,7 @@
 <form method="post" action="/admin/tipos-de-cozinha/novo">
     <label for="nome">Nome</label>
     <input id="nome" type="text" name="nome" maxlength="50" required>
-    <form:errors path="tipoDeCozinhaForm.nome"/>
+    <form:errors path="tipoDeCozinhaParaAdicaoForm.nome"/>
     <input type="submit" value="Salvar">
     <a href="/admin/tipos-de-cozinha">Cancelar</a>
 </form>

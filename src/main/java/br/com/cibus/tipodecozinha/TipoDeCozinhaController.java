@@ -19,7 +19,7 @@ public class TipoDeCozinhaController {
         this.tipoDeCozinhaRepository = tipoDeCozinhaRepository;
     }
 
-    @InitBinder("tipoDeCozinhaForm")
+    @InitBinder("tipoDeCozinhaParaAdicaoForm")
     void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(new TipoDeCozinhaParaAdicaoValidator(tipoDeCozinhaRepository));
     }
@@ -42,12 +42,12 @@ public class TipoDeCozinhaController {
     }
 
     @PostMapping("/admin/tipos-de-cozinha/novo")
-    public String adiciona(@Valid TipoDeCozinhaForm tipoDeCozinhaForm, BindingResult bindingResult) {
+    public String adiciona(@Valid TipoDeCozinhaParaAdicaoForm tipoDeCozinhaParaAdicaoForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "tipo-de-cozinha/formulario-adicionar";
         }
 
-        TipoDeCozinha tipoDeCozinha = tipoDeCozinhaForm.toEntity();
+        TipoDeCozinha tipoDeCozinha = tipoDeCozinhaParaAdicaoForm.toEntity();
         tipoDeCozinhaRepository.save(tipoDeCozinha);
         return "redirect:/admin/tipos-de-cozinha";
     }

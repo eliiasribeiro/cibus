@@ -2,7 +2,8 @@ package br.com.cibus.tipodecozinha;
 
 import javax.validation.constraints.*;
 
-class TipoDeCozinhaForm {
+class TipoDeCozinhaParaAdicaoForm {
+
     @NotBlank
     @Size(min=1, max = 50)
     private String nome;

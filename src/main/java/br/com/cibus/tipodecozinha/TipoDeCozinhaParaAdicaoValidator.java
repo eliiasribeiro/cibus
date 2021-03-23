@@ -13,14 +13,14 @@ public class TipoDeCozinhaParaAdicaoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return TipoDeCozinhaForm.class.isAssignableFrom(clazz);
+        return TipoDeCozinhaParaAdicaoForm.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        TipoDeCozinhaForm tipoDeCozinhaForm = (TipoDeCozinhaForm) target;
+        TipoDeCozinhaParaAdicaoForm tipoDeCozinhaParaAdicaoForm = (TipoDeCozinhaParaAdicaoForm) target;
 
-        if (tipoDeCozinhaRepository.existsByNome(tipoDeCozinhaForm.getNome())) {
+        if (tipoDeCozinhaRepository.existsByNome(tipoDeCozinhaParaAdicaoForm.getNome())) {
             errors.rejectValue("nome", "nome.ja.existente", "Nome já existente");
         }
      }
