@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form method="post" action="/admin/tipos-de-cozinha/editar/${tipoDeCozinha.id}">
+<form method="post" action="/admin/tipos-de-cozinha/edicao/${tipoDeCozinha.id}">
     <input type="hidden" name="id" value="${tipoDeCozinha.id}">
     <label for="nome">Nome</label>
     <input id="nome" type="text" name="nome" value="${tipoDeCozinha.nome}" maxlength="50" required>

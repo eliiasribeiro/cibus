@@ -20,9 +20,9 @@
     <c:forEach items="${tiposDeCozinha}" var="tipoDeCozinha">
         <tr>
             <td>${tipoDeCozinha.nome}</td>
-            <td><a href="/admin/tipos-de-cozinha/editar/${tipoDeCozinha.id}">Editar</a></td>
+            <td><a href="/admin/tipos-de-cozinha/edicao/${tipoDeCozinha.id}">Editar</a></td>
             <td>
-                <form method="post" action="/admin/tipos-de-cozinha/remover/${tipoDeCozinha.id}">
+                <form method="post" action="/admin/tipos-de-cozinha/remocao/${tipoDeCozinha.id}">
                     <button type="submit">Remover</button>
                 </form>
             </td>

@@ -52,14 +52,14 @@ public class TipoDeCozinhaController {
         return "redirect:/admin/tipos-de-cozinha";
     }
 
-    @GetMapping("/admin/tipos-de-cozinha/editar/{id}")
+    @GetMapping("/admin/tipos-de-cozinha/edicao/{id}")
     public String formularioEditar(@PathVariable("id") Long id, Model model) {
         TipoDeCozinha tipoDeCozinha = tipoDeCozinhaRepository.findById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("tipoDeCozinha", tipoDeCozinha);
         return "tipo-de-cozinha/formulario-editar";
     }
 
-    @PostMapping("/admin/tipos-de-cozinha/editar/{id}")
+    @PostMapping("/admin/tipos-de-cozinha/edicao/{id}")
     public String edita(@Valid TipoDeCozinhaParaEdicaoForm tipoDeCozinhaForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return formularioEditar(tipoDeCozinhaForm.getId(), model);
@@ -71,7 +71,7 @@ public class TipoDeCozinhaController {
         return "redirect:/admin/tipos-de-cozinha";
     }
 
-    @PostMapping("/admin/tipos-de-cozinha/remover/{id}")
+    @PostMapping("/admin/tipos-de-cozinha/remocao/{id}")
     public String remover(@PathVariable("id") Long id) {
         tipoDeCozinhaRepository.deleteById(id);
         return "redirect:/admin/tipos-de-cozinha";
