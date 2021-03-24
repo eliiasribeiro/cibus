@@ -17,7 +17,7 @@ class TipoDeCozinhaRepositoryTest {
     private TipoDeCozinhaRepository tipoDeCozinhaRepository;
 
     @Test
-    void deveListarOsNomesEmOrdemAlfabetica() {
+    void deve_listar_os_nomes_em_ordem_alfabetica() {
         // Árabe, Baiana, Chinesa e Italiana já vem cadastradas
         tipoDeCozinhaRepository.saveAll(
                 List.of(new TipoDeCozinha("Mexicana"),
@@ -33,18 +33,21 @@ class TipoDeCozinhaRepositoryTest {
     }
 
     @Test
-    void deveIndicarQuandoONomeJaExiste() {
+    void deve_indicar_quando_o_nome_ja_existe() {
         tipoDeCozinhaRepository.save(new TipoDeCozinha("Chilena"));
 
-        boolean jaExisteQuandoFoiCadastrado = tipoDeCozinhaRepository.existsByNome("Chilena");
-        assertThat(jaExisteQuandoFoiCadastrado).isTrue();
-
-        boolean naoExisteQuandoAindaNaoFoiCadastrado = tipoDeCozinhaRepository.existsByNome("Contemporânea");
-        assertThat(naoExisteQuandoAindaNaoFoiCadastrado).isFalse();
+        boolean jaExiste = tipoDeCozinhaRepository.existsByNome("Chilena");
+        assertThat(jaExiste).isTrue();
     }
 
     @Test
-    void deveIndicarQuandoOutroTipoDeDoCozinhaJaTemOMesmoNome() {
+    void deve_indicar_quando_o_nome_ainda_nao_existe() {
+        boolean jaExiste = tipoDeCozinhaRepository.existsByNome("Contemporânea");
+        assertThat(jaExiste).isFalse();
+    }
+
+    @Test
+    void deve_indicar_quando_outro_tipo_de_cozinha_ja_tem_o_mesmo_nome() {
         TipoDeCozinha indiana = tipoDeCozinhaRepository.save(new TipoDeCozinha("Indiana"));
 
         Long mesmoId = indiana.getId();
