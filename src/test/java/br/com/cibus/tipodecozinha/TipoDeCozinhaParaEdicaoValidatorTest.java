@@ -10,7 +10,6 @@ import static org.mockito.Mockito.*;
 class TipoDeCozinhaParaEdicaoValidatorTest {
 
     private TipoDeCozinhaParaEdicaoForm tipoDeCozinhaParaEdicaoForm;
-    private TipoDeCozinhaRepository repository;
     private TipoDeCozinhaParaEdicaoValidator tipoDeCozinhaParaEdicaoValidator;
     private Errors errors;
 
@@ -18,7 +17,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     void init() {
         tipoDeCozinhaParaEdicaoForm = new TipoDeCozinhaParaEdicaoForm();
 
-        repository = mock(TipoDeCozinhaRepository.class);
+        TipoDeCozinhaRepository repository = mock(TipoDeCozinhaRepository.class);
         when(repository.existsByNomeAndIdNot(eq("Mexicana"), not(eq(1L)))).thenReturn(true);
 
         tipoDeCozinhaParaEdicaoValidator = new TipoDeCozinhaParaEdicaoValidator(repository);
@@ -26,7 +25,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeJaExisteEIdForOMesmoNaoDaErro() {
+    void quando_nome_ja_existe_e_id_for_o_mesmo_nao_da_erro() {
         tipoDeCozinhaParaEdicaoForm.setId(1L);
         tipoDeCozinhaParaEdicaoForm.setNome("Mexicana");
 
@@ -36,7 +35,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeJaExisteMasIdForDiferenteDeveDarErro() {
+    void quando_nome_ja_existe_mas_id_for_diferente_deve_dar_erro() {
         tipoDeCozinhaParaEdicaoForm.setId(99L);
         tipoDeCozinhaParaEdicaoForm.setNome("Mexicana");
 
@@ -46,7 +45,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeNaoExisteEIdForOMesmoNaoDaErro() {
+    void quando_nome_nao_existe_e_id_for_o_mesmo_nao_da_erro() {
         tipoDeCozinhaParaEdicaoForm.setId(1L);
         tipoDeCozinhaParaEdicaoForm.setNome("Italiana");
 
@@ -56,7 +55,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeNaoExisteMasIdForDiferenteNaoDaErro() {
+    void quando_nome_nao_existe_mas_id_for_diferente_nao_da_erro() {
         tipoDeCozinhaParaEdicaoForm.setId(99L);
         tipoDeCozinhaParaEdicaoForm.setNome("Italiana");
 

@@ -4,13 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 
-import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
 class TipoDeCozinhaParaAdicaoValidatorTest {
 
     private TipoDeCozinhaParaAdicaoForm tipoDeCozinhaParaAdicaoForm;
-    private TipoDeCozinhaRepository repository;
     private TipoDeCozinhaParaAdicaoValidator tipoDeCozinhaParaAdicaoValidator;
     private Errors errors;
 
@@ -18,7 +16,7 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
     void init() {
         tipoDeCozinhaParaAdicaoForm = new TipoDeCozinhaParaAdicaoForm();
 
-        repository = mock(TipoDeCozinhaRepository.class);
+        TipoDeCozinhaRepository repository = mock(TipoDeCozinhaRepository.class);
         when(repository.existsByNome("Mexicana")).thenReturn(true);
 
         tipoDeCozinhaParaAdicaoValidator = new TipoDeCozinhaParaAdicaoValidator(repository);
@@ -27,7 +25,7 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeJaExisteDeveDarErro() {
+    void quando_nome_ja_existe_deve_dar_erro() {
         tipoDeCozinhaParaAdicaoForm.setNome("Mexicana");
 
         tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaParaAdicaoForm, errors);
@@ -36,7 +34,7 @@ class TipoDeCozinhaParaAdicaoValidatorTest {
     }
 
     @Test
-    void quandoNomeNaoExisteNaoDaErro() {
+    void quando_nome_nao_existe_nao_da_erro() {
         tipoDeCozinhaParaAdicaoForm.setNome("Italiana");
 
         tipoDeCozinhaParaAdicaoValidator.validate(tipoDeCozinhaParaAdicaoForm, errors);
