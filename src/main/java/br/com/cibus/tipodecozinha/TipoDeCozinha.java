@@ -36,10 +36,6 @@ public class TipoDeCozinha {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "TipoDeCozinha{" +
