@@ -65,7 +65,7 @@ public class TipoDeCozinhaController {
             return formularioEditar(tipoDeCozinhaForm.getId(), model);
         }
 
-        TipoDeCozinha tipoDeCozinha = tipoDeCozinhaForm.toEntity(tipoDeCozinhaRepository);
+        TipoDeCozinha tipoDeCozinha = tipoDeCozinhaForm.comoEntidade(tipoDeCozinhaRepository::findById);
         tipoDeCozinhaRepository.save(tipoDeCozinha);
 
         return "redirect:/admin/tipos-de-cozinha";

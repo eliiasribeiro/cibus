@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Optional;
+import java.util.function.LongFunction;
 
 public class TipoDeCozinhaParaEdicaoForm {
 
@@ -33,8 +35,8 @@ public class TipoDeCozinhaParaEdicaoForm {
         this.nome = nome;
     }
 
-    TipoDeCozinha toEntity(TipoDeCozinhaRepository tipoDeCozinhaRepository) {
-        TipoDeCozinha tipoDeCozinha = tipoDeCozinhaRepository.findById(id).orElseThrow(NotFoundException::new);
+    TipoDeCozinha comoEntidade(LongFunction<Optional<TipoDeCozinha>> buscadorDeTipoDeCozinha) {
+        TipoDeCozinha tipoDeCozinha = buscadorDeTipoDeCozinha.apply(id).orElseThrow(NotFoundException::new);
         tipoDeCozinha.setNome(nome);
         return tipoDeCozinha;
     }
