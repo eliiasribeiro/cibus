@@ -1,6 +1,6 @@
 package br.com.cibus.tipodecozinha;
 
-import br.com.cibus.exceptions.NotFoundException;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Optional;
 import java.util.function.LongFunction;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public class TipoDeCozinhaParaEdicaoForm {
 
@@ -36,7 +38,7 @@ public class TipoDeCozinhaParaEdicaoForm {
     }
 
     TipoDeCozinha comoEntidade(LongFunction<Optional<TipoDeCozinha>> buscadorDeTipoDeCozinha) {
-        TipoDeCozinha tipoDeCozinha = buscadorDeTipoDeCozinha.apply(id).orElseThrow(NotFoundException::new);
+        TipoDeCozinha tipoDeCozinha = buscadorDeTipoDeCozinha.apply(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         tipoDeCozinha.setNome(nome);
         return tipoDeCozinha;
     }
