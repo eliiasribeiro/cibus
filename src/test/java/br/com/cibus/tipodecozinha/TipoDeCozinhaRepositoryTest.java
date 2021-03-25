@@ -51,11 +51,11 @@ class TipoDeCozinhaRepositoryTest {
         TipoDeCozinha indiana = tipoDeCozinhaRepository.save(new TipoDeCozinha("Indiana"));
 
         Long mesmoId = indiana.getId();
-        boolean existeComMesmoNomeEMesmoId = tipoDeCozinhaRepository.existsByNomeAndIdNot("Indiana", mesmoId);
+        boolean existeComMesmoNomeEMesmoId = tipoDeCozinhaRepository.existsByNomeWithDifferentId("Indiana", mesmoId);
         assertThat(existeComMesmoNomeEMesmoId).isFalse();
 
         long outroIdQualquer = 999L;
-        boolean existeComMesmoNomeMasComOutroId = tipoDeCozinhaRepository.existsByNomeAndIdNot("Indiana", outroIdQualquer);
+        boolean existeComMesmoNomeMasComOutroId = tipoDeCozinhaRepository.existsByNomeWithDifferentId("Indiana", outroIdQualquer);
         assertThat(existeComMesmoNomeMasComOutroId).isTrue();
     }
 }

@@ -21,7 +21,7 @@ public class TipoDeCozinhaParaEdicaoValidator implements Validator {
     public void validate(Object target, Errors errors) {
         TipoDeCozinhaParaEdicaoForm tipoDeCozinhaParaEdicaoForm = (TipoDeCozinhaParaEdicaoForm) target;
 
-        if (tipoDeCozinhaRepository.existsByNomeAndIdNot(tipoDeCozinhaParaEdicaoForm.getNome(), tipoDeCozinhaParaEdicaoForm.getId())) {
+        if (tipoDeCozinhaRepository.existsByNomeWithDifferentId(tipoDeCozinhaParaEdicaoForm.getNome(), tipoDeCozinhaParaEdicaoForm.getId())) {
             errors.rejectValue("nome", "nome.ja.existente", "Nome já existente");
         }
     }

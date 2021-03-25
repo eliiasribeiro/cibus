@@ -106,7 +106,7 @@ class TipoDeCozinhaControllerTest {
     void edita() throws Exception {
         TipoDeCozinha baiana = new TipoDeCozinha(1L, "Baiana");
         when(tipoDeCozinhaRepository.findById(1L)).thenReturn(Optional.of(baiana));
-        when(tipoDeCozinhaRepository.existsByNomeAndIdNot("Nordestina", 1L)).thenReturn(false);
+        when(tipoDeCozinhaRepository.existsByNomeWithDifferentId("Nordestina", 1L)).thenReturn(false);
 
         mockMvc.perform(post("/admin/tipos-de-cozinha/edicao/1")
                 .param("nome", "Nordestina")
@@ -147,7 +147,7 @@ class TipoDeCozinhaControllerTest {
     void da_erro_quando_nome_ja_existe_pra_outro_id_e_volta_para_formulario() throws Exception {
         TipoDeCozinha baiana = new TipoDeCozinha(1L, "Baiana");
         when(tipoDeCozinhaRepository.findById(1L)).thenReturn(Optional.of(baiana));
-        when(tipoDeCozinhaRepository.existsByNomeAndIdNot("Nordestina", 1L)).thenReturn(true);
+        when(tipoDeCozinhaRepository.existsByNomeWithDifferentId("Nordestina", 1L)).thenReturn(true);
 
         mockMvc.perform(post("/admin/tipos-de-cozinha/edicao/1")
                 .param("nome", "Nordestina")

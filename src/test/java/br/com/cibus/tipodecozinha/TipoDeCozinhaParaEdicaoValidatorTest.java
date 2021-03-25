@@ -18,7 +18,7 @@ class TipoDeCozinhaParaEdicaoValidatorTest {
         tipoDeCozinhaParaEdicaoForm = new TipoDeCozinhaParaEdicaoForm();
 
         TipoDeCozinhaRepository repository = mock(TipoDeCozinhaRepository.class);
-        when(repository.existsByNomeAndIdNot(eq("Mexicana"), not(eq(1L)))).thenReturn(true);
+        when(repository.existsByNomeWithDifferentId(eq("Mexicana"), not(eq(1L)))).thenReturn(true);
 
         tipoDeCozinhaParaEdicaoValidator = new TipoDeCozinhaParaEdicaoValidator(repository);
         errors = mock(Errors.class);
