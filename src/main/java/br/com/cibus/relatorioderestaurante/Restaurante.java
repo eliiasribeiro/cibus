@@ -1,4 +1,4 @@
-package br.com.cibus.relatoriorestaurante;
+package br.com.cibus.relatorioderestaurante;
 
 import br.com.cibus.tipodecozinha.TipoDeCozinha;
 

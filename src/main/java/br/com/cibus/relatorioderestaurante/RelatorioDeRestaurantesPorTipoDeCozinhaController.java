@@ -1,6 +1,7 @@
-package br.com.cibus.relatoriorestaurante;
+package br.com.cibus.relatorioderestaurante;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -15,10 +16,9 @@ public class RelatorioDeRestaurantesPorTipoDeCozinhaController {
     }
 
     @GetMapping("/admin")
-    public String listagem() {
-
+    public String listagem(Model model) {
         List<RelatorioRestaurantePorTipoDeCozinha> relatorioRestaurantePorTipoDeCozinhas = restauranteRepository.restaurantesPorTipoDeCozinha();
-
+        model.addAttribute("restaurantesPorTipoDeCozinha", relatorioRestaurantePorTipoDeCozinhas);
         return "relatorio-de-restaurante/listagem";
     }
 

@@ -16,10 +16,12 @@
         <th>Tipo de Cozinha</th>
         <th>Qtd.</th>
     </tr>
+    <c:forEach items="${restaurantesPorTipoDeCozinha}" var="restaurantePorTipoDeCozinha">
         <tr>
-            <td></td>
-            <td></td>
+            <td>${restaurantePorTipoDeCozinha.nomeTipoDeCozinha}</td>
+            <td>${restaurantePorTipoDeCozinha.quantidadeDeRestaurantes}</td>
         </tr>
+    </c:forEach>
 </table>
 
 </body>
