@@ -11,4 +11,5 @@ public interface TipoDeCozinhaRepository extends JpaRepository<TipoDeCozinha, Lo
     default boolean existsByNomeWithDifferentId(String nome, Long id) {
         return existsByNomeAndIdNot(nome, id);
     }
+    TipoDeCozinha findByNome(String nome);
 }
